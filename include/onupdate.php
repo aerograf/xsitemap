@@ -17,11 +17,11 @@
  * @author       XOOPS Development Team
  */
 
-use Xoopsmodules\xsitemap;
+use XoopsModules\Xsitemap;
 
 require_once __DIR__ . '/../class/Utility.php';
 
-if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
+if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof \XoopsUser)
     || !$GLOBALS['xoopsUser']->IsAdmin()
 ) {
     exit('Restricted access' . PHP_EOL);
@@ -37,9 +37,11 @@ if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof XoopsUse
  */
 function xoops_module_pre_update_xsitemap(XoopsModule $module)
 {
+    /** @var Xsitemap\Helper $helper */
+    /** @var Xsitemap\Utility $utility */
     $moduleDirName = basename(dirname(__DIR__));
-    /** @var \Utility $utility */
-    $utility = new xsitemap\Utility();
+    $helper       = Xsitemap\Helper::getInstance();
+    $utility      = new Xsitemap\Utility();
 
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
@@ -77,10 +79,15 @@ function xoops_module_update_xsitemap(XoopsModule $module, $previousVersion = nu
         return $success;
     ======================================================================*/
 
-    $moduleDirName = $module->getVar('dirname');
-    $helper      = \Xmf\Module\Helper::getHelper($moduleDirName);
-    /** @var \Utility $utility */
-    $utility = new \Xoopsmodules\xsitemap\Utility();
+    $moduleDirName = basename(dirname(__DIR__));
+    $capsDirName   = strtoupper($moduleDirName);
+
+    /** @var Xsitemap\Helper $helper */
+    /** @var Xsitemap\Utility $utility */
+    /** @var Xsitemap\Common\Configurator $configurator */
+    $helper  = Xsitemap\Helper::getInstance();
+    $utility = new Xsitemap\Utility();
+    $configurator = new Xsitemap\Common\Configurator();
 
     //-----------------------------------------------------------------------
     // Upgrade for Xsitemap < 1.54
@@ -103,7 +110,7 @@ function xoops_module_update_xsitemap(XoopsModule $module, $previousVersion = nu
             XOOPS_UPLOAD_PATH . '/' . $module->dirname()
         ];
         foreach ($old_directories as $old_dir) {
-            $dirInfo = new SplFileInfo($old_dir);
+            $dirInfo = new \SplFileInfo($old_dir);
             if ($dirInfo->isDir()) {
                 // The directory exists so delete it
                 if (false === $utility::rrmdir($old_dir)) {
