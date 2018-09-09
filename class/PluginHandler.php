@@ -1,4 +1,5 @@
 <?php namespace XoopsModules\Xsitemap;
+
 /*
  * ****************************************************************************
  * xsitemap - MODULE FOR XOOPS CMS
@@ -24,7 +25,7 @@
  * @since      1.00
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 
 /**

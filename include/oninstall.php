@@ -41,7 +41,7 @@ if ((!defined('XOOPS_ROOT_PATH'))
  *
  * @return bool true if ready to install, false if not
  */
-function xoops_module_pre_install_xsitemap(XoopsModule $module)
+function xoops_module_pre_install_xsitemap(\XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
     include __DIR__ . '/../preloads/autoloader.php';
@@ -68,7 +68,7 @@ function xoops_module_pre_install_xsitemap(XoopsModule $module)
  *
  * @return bool true if installation successful, false if not
  */
-function xoops_module_install_xsitemap(XoopsModule $module)
+function xoops_module_install_xsitemap(\XoopsModule $module)
 {
 //    $configuratorArray = include __DIR__ . '/config.php';
 
@@ -80,10 +80,10 @@ function xoops_module_install_xsitemap(XoopsModule $module)
      * after install, module now uses XOOPS preload instead */
     /*
     //28/08/2009 by urbanspaceman
-    include_once $GLOBALS['xoops']->path("class/tree.php");
-    include_once $GLOBALS['xoops']->path("modules/" . $module->dirname() . "/class/plugin.php");
-    include_once $GLOBALS['xoops']->path("modules/" . $module->dirname() . "/include/functions.php");
-    include_once $GLOBALS['xoops']->path("modules/" . $module->dirname(). "/class/DummyObject.php");
+    require_once $GLOBALS['xoops']->path("class/tree.php");
+    require_once $GLOBALS['xoops']->path("modules/" . $module->dirname() . "/class/plugin.php");
+    require_once $GLOBALS['xoops']->path("modules/" . $module->dirname() . "/include/functions.php");
+    require_once $GLOBALS['xoops']->path("modules/" . $module->dirname(). "/class/DummyObject.php");
 
     //Create the xsitemap.xml file in the site root
     $xsitemap_show = Utility::generateSitemap();
