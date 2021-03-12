@@ -9,20 +9,24 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  * @package    module\Xsitemap\admin
  * @author     Mage, Mamba
  * @copyright  XOOPS Project (https://xoops.org)
- * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @license    https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @link       https://xoops.org XOOPS
  * @since      1.00
  */
 
-require_once __DIR__ . '/admin_header.php';
+use Xmf\Module\Admin;
+
+/** @var Admin $adminObject */
+require __DIR__ . '/admin_header.php';
 xoops_cp_header();
+$templateMain = 'xsitemap_admin_about.tpl';
 
-$adminObject->displayNavigation(basename(__FILE__));
+$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('about.php'));
 $adminObject::setPaypal('xoopsfoundation@gmail.com');
-$adminObject->displayAbout(false);
-
+$GLOBALS['xoopsTpl']->assign('about', $adminObject->renderAbout(false));
 require_once __DIR__ . '/admin_footer.php';

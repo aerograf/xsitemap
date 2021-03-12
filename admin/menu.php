@@ -25,34 +25,38 @@
  * @since           1.00
  */
 
-use \XoopsModules\Xsitemap;
+use Xmf\Module\Admin;
+use XoopsModules\Xsitemap\{
+    Helper
+};
 
-// require_once __DIR__ . '/../class/Helper.php';
-//require_once __DIR__ . '/../include/common.php';
-$helper = Xsitemap\Helper::getInstance();
-
-$pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
-$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
-
+//require_once  dirname(__DIR__) . '/include/common.php';
+$helper = Helper::getInstance();
+$helper->loadLanguage('common');
+$helper->loadLanguage('feedback');
+$pathIcon32 = Admin::menuIconPath('');
+if (is_object($helper->getModule())) {
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+}
 $adminmenu = [
     [
         'title' => _MI_XSITEMAP_MANAGER_INDEX,
         'link'  => 'admin/index.php',
-        'icon'  => $pathIcon32 . '/home.png'
+        'icon'  => $pathIcon32 . '/home.png',
     ],
     [
         'title' => _MI_XSITEMAP_MANAGER_PLUGIN,
         'link'  => 'admin/plugin.php',
-        'icon'  => 'assets/images/admin/plugin.png'
+        'icon'  => 'assets/images/admin/plugin.png',
     ],
     [
         'title' => _MI_XSITEMAP_MANAGER_XML,
         'link'  => 'admin/xml.php',
-        'icon'  => 'assets/images/admin/xml.png'
+        'icon'  => 'assets/images/admin/xml.png',
     ],
     [
         'title' => _MI_XSITEMAP_MANAGER_ABOUT,
         'link'  => 'admin/about.php',
-        'icon'  => $pathIcon32 . '/about.png'
+        'icon'  => $pathIcon32 . '/about.png',
     ],
 ];
